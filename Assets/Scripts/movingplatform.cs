@@ -23,4 +23,20 @@ public class movingplatform : MonoBehaviour
         }
         transform.position = Vector3.MoveTowards(transform.position, nextPosition, speed * Time.deltaTime);
     }
+
+    private void OnTriggerEnter(Collider other) // This is so that the player can move with the platform and not slide off
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.transform.SetParent(transform);
+        }
+    }
+
+    private void OnTriggerExit(Collider other) // Stop moving with it
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.transform.SetParent(null);
+        }
+    }
 }
