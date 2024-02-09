@@ -15,6 +15,7 @@ public class healthsystem : MonoBehaviour
     {
         currentHealth = maxHealth;
         UpdateHealthDisplay();
+        transform.position = GameManager.Instance.GetCurrentCheckpointPosition();
     }
 
     public void TakeDamage(int damage) // Simple take damage for kill boxes
@@ -32,8 +33,10 @@ public class healthsystem : MonoBehaviour
         healthDisplay.text = "Health: " + currentHealth; // Display the health
     }
 
-    void Die()
+    void Die() // Kill the player and respawn at last checkpoint
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene for now
+        transform.position = GameManager.Instance.GetCurrentCheckpointPosition();
+        currentHealth = maxHealth;
+        UpdateHealthDisplay();
     }
 }
